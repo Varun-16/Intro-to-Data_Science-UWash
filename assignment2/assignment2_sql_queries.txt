@@ -1,10 +1,16 @@
+a) 
+
 SELECT count(*) FROM (
 	SELECT * FROM frequency WHERE docid="10398_txt_earn" 
 );
 
+b)
+
 SELECT count(*) FROM (
 	SELECT * FROM frequency WHERE docid="10398_txt_earn" AND count=1
 );
+
+c)
 
 SELECT count(*) FROM (
 	SELECT term FROM frequency WHERE docid="10398_txt_earn" AND count=1
@@ -12,9 +18,13 @@ SELECT count(*) FROM (
 	SELECT term FROM frequency WHERE docid="925_txt_trade" AND count=1 
 );
 
+d)
+
 SELECT count(*) FROM (
 	SELECT docid FROM frequency WHERE term="parliament"
 );
+
+e)
 
 SELECT count(*) FROM (
 	SELECT * FROM frequency
@@ -22,19 +32,27 @@ SELECT count(*) FROM (
 	HAVING SUM(count) > 300
 );
 
+f)
+
 SELECT count(*) FROM (
 	SELECT docid FROM frequency WHERE term="transactions" 
 	INTERSECT
 	SELECT docid FROM frequency WHERE term="world"
 );
 
+g)
+
 #### SQL to MULTIPLY MATRICES ######
 SELECT SUM(finalVal) FROM (SELECT finalVal FROM (SELECT row, col, valA * valB AS finalVal FROM (SELECT A.row_num AS row, B.col_num AS col, A.value AS valA, B.value as valB FROM A,B WHERE A.col_num = B.row_num))
 WHERE row=2 AND col=3);
 
+h)
+
 ##### SQL to FIND SIMILARITY MATRIX #######
 SELECT SUM(prod) FROM (SELECT f1.docid as doc1, f2.docid as doc2, f1.count * f2.count as prod FROM frequency f1, frequency f2 
 WHERE f1.docid < f2.docid AND f1.term = f2.term) WHERE doc1="10080_txt_crude" AND doc2="17035_txt_earn";
+
+i)
 
 ##### SQL for KEYWORD SEARCH #####
 SELECT MAX(prod) FROM (SELECT B.docid, A.count * B.count AS prod FROM (SELECT * FROM frequency UNION SELECT 'q' as docid, 'washington' as term, 1 as count UNION SELECT 'q' as docid, 'taxes' as term, 1 as count UNION SELECT 'q' as docid, 'treasury' as term, 1 as count) AS A,(SELECT * FROM frequency UNION SELECT 'q' as docid, 'washington' as term, 1 as count UNION SELECT 'q' as docid, 'taxes' as term, 1 as count UNION SELECT 'q' as docid, 'treasury' as term, 1 as count) AS B
