@@ -1,0 +1,2 @@
+SELECT MAX(prod) FROM (SELECT B.docid, A.count * B.count AS prod FROM (SELECT * FROM frequency UNION SELECT 'q' as docid, 'washington' as term, 1 as count UNION SELECT 'q' as docid, 'taxes' as term, 1 as count UNION SELECT 'q' as docid, 'treasury' as term, 1 as count) AS A,(SELECT * FROM frequency UNION SELECT 'q' as docid, 'washington' as term, 1 as count UNION SELECT 'q' as docid, 'taxes' as term, 1 as count UNION SELECT 'q' as docid, 'treasury' as term, 1 as count) AS B
+WHERE A.docid="q" AND A.term=B.term);
